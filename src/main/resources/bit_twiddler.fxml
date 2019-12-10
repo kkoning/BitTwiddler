@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="404.0" prefWidth="702.0" style="-fx-font-size: 11;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="twiddler.Controller">
+  <children>
+    <BorderPane prefHeight="70.0">
+      <left>
+        <Label contentDisplay="RIGHT" text="Input:" underline="true">
+          <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+          </padding>
+          <BorderPane.margin>
+            <Insets />
+          </BorderPane.margin>
+        </Label>
+      </left>
+      <center>
+        <TextArea fx:id="input" onKeyTyped="#processInput" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+          <BorderPane.margin>
+            <Insets left="5.0" right="5.0" top="5.0" />
+          </BorderPane.margin>
+          <font>
+            <Font name="Monospaced Regular" size="11.0" />
+          </font>
+        </TextArea>
+      </center>
+      <right>
+        <VBox BorderPane.alignment="CENTER">
+          <children>
+            <Label text="Interpret as:" underline="true">
+              <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+              </padding>
+            </Label>
+            <ComboBox fx:id="inputType" onAction="#processInput" prefWidth="150.0">
+              <items>
+                <FXCollections fx:factory="observableArrayList">
+                  <String fx:value="UTF-8 Text" />
+                  <String fx:value="UTF-16 Text (LE)" />
+                  <String fx:value="Hex Bytes" />
+                  <String fx:value="Binary Bytes" />
+                  <String fx:value="Decimal Integer" />
+                  <String fx:value="Hex Integer" />
+                  <String fx:value="Binary Integer" />
+                </FXCollections>
+              </items>
+            </ComboBox>
+            <ComboBox fx:id="endian" onAction="#processInput" prefWidth="150.0" GridPane.columnIndex="2">
+              <items>
+                <FXCollections fx:factory="observableArrayList">
+                  <String fx:value="Little Endian" />
+                  <String fx:value="Big Endian" />
+                </FXCollections>
+              </items>
+            </ComboBox>
+          </children>
+        </VBox>
+      </right>
+      <VBox.margin>
+        <Insets />
+      </VBox.margin>
+      <padding>
+        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+      </padding>
+    </BorderPane>
+    <GridPane hgap="1.0" vgap="1.0">
+      <columnConstraints>
+        <ColumnConstraints hgrow="NEVER" prefWidth="25.0" />
+        <ColumnConstraints hgrow="SOMETIMES" />
+        <ColumnConstraints hgrow="SOMETIMES" />
+        <ColumnConstraints hgrow="SOMETIMES" />
+        <ColumnConstraints hgrow="SOMETIMES" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints minHeight="25.0" prefHeight="25.0" vgrow="NEVER" />
+        <RowConstraints minHeight="25.0" prefHeight="25.0" vgrow="NEVER" />
+        <RowConstraints minHeight="25.0" prefHeight="25.0" vgrow="NEVER" />
+        <RowConstraints minHeight="25.0" prefHeight="25.0" vgrow="NEVER" />
+        <RowConstraints minHeight="25.0" prefHeight="25.0" vgrow="NEVER" />
+      </rowConstraints>
+      <children>
+        <Label prefHeight="17.0" prefWidth="56.0" text="Bits" underline="true">
+          <GridPane.margin>
+            <Insets />
+          </GridPane.margin>
+        </Label>
+        <Label text="8" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+        <Label text="16" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+        <Label text="32" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+        <Label text="64" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+
+        <Label text="Signed" underline="true" GridPane.columnIndex="1" />
+        <TextField fx:id="asI8" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <TextField fx:id="asI16" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <TextField fx:id="asI32" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <TextField fx:id="asI64" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+        <Label text="Unsigned" underline="true" GridPane.columnIndex="2" />
+        <TextField fx:id="asU8" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+        <TextField fx:id="asU16" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+        <TextField fx:id="asU32" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+        <TextField fx:id="asU64" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+
+        <Label text="Floating Point" underline="true" GridPane.columnIndex="3" />
+        <Label text="N/A" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+        <Label text="N/A" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+        <TextField fx:id="asF32" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+        <TextField fx:id="asF64" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+
+        <Label text="Hex" underline="true" GridPane.columnIndex="4" />
+        <TextField fx:id="asHexU8" editable="false" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+        <TextField fx:id="asHexU16" editable="false" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+        <TextField fx:id="asHexU32" editable="false" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+        <TextField fx:id="asHexU64" editable="false" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+      </children>
+      <opaqueInsets>
+        <Insets />
+      </opaqueInsets>
+      <padding>
+        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+      </padding>
+    </GridPane>
+
+    <GridPane>
+      <columnConstraints>
+        <ColumnConstraints hgrow="NEVER" maxWidth="20" minWidth="20" />
+        <ColumnConstraints hgrow="SOMETIMES" />
+        <ColumnConstraints hgrow="NEVER" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints maxHeight="50.0" minHeight="50.0" vgrow="NEVER" />
+        <RowConstraints minHeight="70.0" vgrow="ALWAYS" />
+        <RowConstraints minHeight="70.0" vgrow="ALWAYS" />
+      </rowConstraints>
+      <children>
+        <Label minWidth="-Infinity" rotate="270.0" text="As Text" underline="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+        <Label minWidth="-Infinity" rotate="270.0" text="Hex" underline="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+        <Label minWidth="-Infinity" rotate="270.0" text="Binary" underline="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+
+        <TextArea fx:id="asText" editable="false" prefHeight="48.0" prefWidth="630.0" BorderPane.alignment="CENTER" GridPane.columnIndex="1" GridPane.hgrow="SOMETIMES" GridPane.vgrow="NEVER">
+          <GridPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+          </GridPane.margin>
+          <font>
+            <Font name="Monospaced Regular" size="11.0" />
+          </font>
+        </TextArea>
+
+        <TextArea fx:id="asHexDump" editable="false" BorderPane.alignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="SOMETIMES">
+          <GridPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+          </GridPane.margin>
+          <font>
+            <Font name="Monospaced Regular" size="11.0" />
+          </font>
+        </TextArea>
+        <TextArea fx:id="asBinary" editable="false" BorderPane.alignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="SOMETIMES">
+          <GridPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+          </GridPane.margin>
+          <font>
+            <Font name="Monospaced Regular" size="11.0" />
+          </font>
+        </TextArea>
+
+        <VBox BorderPane.alignment="CENTER" GridPane.columnIndex="2">
+          <children>
+            <Label text="Parse as:" underline="true" />
+            <ComboBox fx:id="asTextType" onAction="#processInput" prefWidth="150.0">
+              <items>
+                <FXCollections fx:factory="observableArrayList">
+                  <String fx:value="UTF-8" />
+                  <String fx:value="UTF-16 LE" />
+                  <String fx:value="ASCII" />
+                </FXCollections>
+              </items>
+            </ComboBox>
+          </children>
+        </VBox>
+
+      </children>
+      <opaqueInsets>
+        <Insets />
+      </opaqueInsets>
+      <padding>
+        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+      </padding>
+    </GridPane>
+
+  </children>
+</VBox>
